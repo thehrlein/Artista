@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_album_artist_url_label">Zusätzliche Informationen</string>
+    <string name="detail_album_loading_tracks">lade Songs …</string>
+    <string name="detail_album_no_tracks_available">Keine Songs vefügbar</string>
+    <string name="detail_album_track_duration_label">Dauer</string>
+    <string name="detail_album_track_open_track_url_label">Öffnen</string>
+    <string name="detail_album_track_play_content_description">Song-Url öffnen</string>
+    <string name="general_error_occured">Es ist ein unerwarteter Fehler aufgetreten</string>
+    <string name="general_no_internet_connection">Es konnte keine Internetverbindung gefunden werden. Bitte überprüfen Sie ihre Netzwerkeinstellungen und versuchen Sie es erneut.</string>
+    <string name="main_no_favorite_albums_yet">Sie haben bisher kein Album zu Ihren Favoriten hinzugefügt.\nSie können Ihre Lieblingsalben nach dem Suchen hinzufügen.</string>
+    <string name="main_toolbar_title">Artista - Deine Lieblingsalben</string>
+    <string name="search_button_send_search_button">Suche</string>
+    <string name="search_button_send_search_query">Artist suchen</string>
+    <string name="search_toolbar_title">Suchen</string>
+    <string name="top_albums_marked_as_favorite">%1$s zu Favorite hinzugefügt</string>
+    <string name="top_albums_unmarked_as_favorite">%1$s von Favorite entfernt</string>
+    <string name="top_albums_no_albums_found">Entschuldigung - wir konnten keine Alben finden.</string>
+    <string name="top_albums_no_cover_available">Cover nicht verfügbar</string>
+    <string name="top_albums_toolbar_title">Top ALben</string>
+</resources>

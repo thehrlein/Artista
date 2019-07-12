@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- text sizes -->
+    <dimen name="text_size_micro">10sp</dimen>
+    <dimen name="text_size_mini">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_default">16sp</dimen>
+    <dimen name="text_size_big">18sp</dimen>
+    <dimen name="text_size_giant">22sp</dimen>
+    <dimen name="text_size_colossal">28sp</dimen>
+
+    <!-- padding and margin -->
+    <dimen name="space_none">0dp</dimen>
+    <dimen name="space_nano">2dp</dimen>
+    <dimen name="space_micro">4dp</dimen>
+    <dimen name="space_mini">8dp</dimen>
+    <dimen name="space_small">12dp</dimen>
+    <dimen name="space_default">16dp</dimen>
+    <dimen name="space_big">24dp</dimen>
+    <dimen name="space_giant">32dp</dimen>
+    <dimen name="space_colossal">48dp</dimen>
+
+
+</resources>

@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name" translatable="false">Artista</string>
+
+    <!-- General -->
+    <string name="general_no_internet_connection">Unable to get network connection. Please check and try again.</string>
+    <string name="general_error_occured">Unexpected error occurred</string>
+    <string name="general_album_cover_content_description" translatable="false">Album Cover</string>
+
+    <!--Main Fragment -->
+    <string name="main_toolbar_title">Artista - Your favorite albums</string>
+    <string name="main_no_favorite_albums_yet">You don\'t have any favorite albums yet.\nYou can add your favorite albums after searching for it.</string>
+
+    <!-- Search Fragment -->
+    <string name="search_toolbar_title">Search</string>
+    <string name="search_button_send_search_query">Search artists</string>
+    <string name="search_button_send_search_button">Search</string>
+
+    <!-- Top Albums Fragment-->
+    <string name="top_albums_toolbar_title">Top Albums</string>
+    <string name="top_albums_no_albums_found">Sorry - we can\'t find any album.</string>
+    <string name="top_albums_no_cover_available">Cover not available</string>
+    <string name="top_albums_marked_as_favorite">%1$s marked as favorite</string>
+    <string name="top_albums_unmarked_as_favorite">%1$s unmarked as favorite</string>
+
+    <!-- Detail Fragment -->
+    <string name="detail_album_name_label" translatable="false">Name:</string>
+    <string name="detail_album_artist_label" translatable="false">Artist:</string>
+    <string name="detail_album_streams_label" translatable="false">Streams:</string>
+    <string name="detail_album_tracks_label" translatable="false">Tracklist:</string>
+    <string name="detail_album_artist_url_label">Additional Album Info</string>
+    <string name="detail_album_track_number_label" translatable="false">Nr.</string>
+    <string name="detail_album_track_name_label" translatable="false">Name</string>
+    <string name="detail_album_track_duration_label">Duration</string>
+    <string name="detail_album_track_open_track_url_label">Open</string>
+    <string name="detail_album_loading_tracks">loading tracks …</string>
+    <string name="detail_album_no_tracks_available">No tracks available</string>
+    <string name="detail_album_track_play_content_description">Open Track Url</string>
+
+</resources>
