@@ -1,6 +1,7 @@
 package com.tobiapplications.artista.utils.repository.base
 
-import io.reactivex.Single
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
 interface LocalSourceDelegate<I, T> : NetworkSourceDelegate<I, T> {
@@ -19,7 +20,7 @@ interface LocalSourceDelegate<I, T> : NetworkSourceDelegate<I, T> {
         set(null)
     }
 
-    override fun requestData(input: I): Single<Response<T>> {
-        return Single.just(Response.success(get()))
+    override suspend fun requestData(input: I): Deferred<Response<T>> {
+        return CompletableDeferred(Response.success(get()))
     }
 }

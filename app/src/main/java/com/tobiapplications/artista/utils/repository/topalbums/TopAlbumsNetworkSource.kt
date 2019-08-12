@@ -4,7 +4,7 @@ import com.tobiapplications.artista.model.topalbums.TopAlbumRequestModel
 import com.tobiapplications.artista.model.topalbums.TopAlbumsResponse
 import com.tobiapplications.artista.utils.network.NetworkManagerDelegate
 import com.tobiapplications.artista.utils.repository.base.NetworkSourceDelegate
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class TopAlbumsNetworkSource @Inject constructor(private val networkManager: NetworkManagerDelegate) : NetworkSourceDelegate<TopAlbumRequestModel, TopAlbumsResponse> {
 
-    override fun requestData(input: TopAlbumRequestModel): Single<Response<TopAlbumsResponse>> {
+    override suspend fun requestData(input: TopAlbumRequestModel): Deferred<Response<TopAlbumsResponse>> {
         return networkManager.getTopAlbums(input.artist, input.albumPage, input.resultsPerPage)
     }
 }

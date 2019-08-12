@@ -1,9 +1,8 @@
 package com.tobiapplications.artista.utils.mvvm
 
-import com.tobiapplications.artista.model.exception.RequestFailedException
-import com.tobiapplications.artista.utils.extension.applyScheduler
 import com.tobiapplications.artista.utils.repository.base.BaseRepository
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
 /**
@@ -11,26 +10,25 @@ import retrofit2.Response
  * O = Output of useCase
  * R = Response of request
  */
-abstract class BaseRepositoryRequestUseCase<I, O, R>(private val repo: BaseRepository<I, R>) : MediatorUseCase<I, O>(), BaseRepositoryRequestUseCaseDelegate<R> {
+abstract class BaseRepositoryRequestUseCase<I, O, R>(private val repo: BaseRepository<I, R>) : SuspendMediatorUseCase<I, O>(), BaseRepositoryRequestUseCaseDelegate<R> {
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun execute(parameters: I) {
-        compositeDisposable.add(repo.getData(parameters)
-            .applyScheduler()
-            .subscribe( { onSuccess(it) }, { throwable -> onFailure(throwable)}))
+    override suspend fun execute(parameters: I) : Deferred<Response<O>> {
+        val data = repo.getData(parameters)
+        return transformResponse(data)
     }
 
     override fun onSuccess(response: Response<R>) {
-        if (response.isSuccessful) {
-            result.postValue(Result.Success(transformResponse(response.body())))
-        } else {
-            onFailure(RequestFailedException("${this.javaClass.simpleName} was not successful"))
-        }
+//        if (response.isSuccessful) {
+//            result.postValue(Result.Success(transformResponse(response.body())))
+//        } else {
+//            onFailure(RequestFailedException("${this.javaClass.simpleName} was not successful"))
+//        }
     }
 
     override fun onFailure(throwable: Throwable) {
-        result.postValue(Result.Error(RequestFailedException(throwable.message)))
+//        result.postValue(Result.Error(RequestFailedException(throwable.message)))
     }
 
     fun clear() {
@@ -40,6 +38,6 @@ abstract class BaseRepositoryRequestUseCase<I, O, R>(private val repo: BaseRepos
     /**
      * Method to transform response to whatever is needed
      */
-    abstract fun transformResponse(input: R?) : O
+    abstract fun transformResponse(input: Deferred<Response<R>>) : Deferred<Response<O>>
 }
 

@@ -1,6 +1,7 @@
 package com.tobiapplications.artista.di.module
 
 import com.google.gson.Gson
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tobiapplications.artista.utils.general.ArtistaUrls
 import com.tobiapplications.artista.utils.network.ArtistaAPi
 import com.tobiapplications.artista.utils.network.NetworkManager
@@ -54,6 +55,7 @@ class NetworkModule {
             .baseUrl(ArtistaUrls.BASE_LAST_FM_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 
