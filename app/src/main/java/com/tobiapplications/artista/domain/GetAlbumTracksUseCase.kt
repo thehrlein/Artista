@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetAlbumTracksUseCase @Inject constructor(private val networkManager: NetworkManagerDelegate){
 
-    suspend fun getData(input: AlbumTracksRequestModel): Deferred<Response<AlbumTracksResponse>> {
+    fun getData(input: AlbumTracksRequestModel): Deferred<Response<AlbumTracksResponse>> {
         return networkManager.getAlbumTracks(input.artist, input.album)
     }
 }

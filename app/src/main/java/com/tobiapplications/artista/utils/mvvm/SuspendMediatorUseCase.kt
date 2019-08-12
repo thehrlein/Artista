@@ -1,8 +1,6 @@
 package com.tobiapplications.artista.utils.mvvm
 
 import androidx.lifecycle.MediatorLiveData
-import kotlinx.coroutines.Deferred
-import retrofit2.Response
 
 
 /**
@@ -19,5 +17,5 @@ abstract class SuspendMediatorUseCase<in I, O> {
             return result
         }
 
-        abstract suspend fun execute(parameters: I) : Deferred<Response<O>>
+        abstract suspend fun execute(parameters: I)
     }

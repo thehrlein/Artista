@@ -75,5 +75,10 @@ class SearchFragment : BaseFragment() {
     override fun getLayout(): Int {
         return R.layout.fragment_search
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
+    }
 }
 

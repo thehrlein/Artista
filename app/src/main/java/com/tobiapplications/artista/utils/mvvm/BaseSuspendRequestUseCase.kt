@@ -18,17 +18,9 @@ abstract class BaseSuspendRequestUseCase<I, O> : SuspendMediatorUseCase<I, O>(){
 
     protected abstract suspend fun getData(input: I): Deferred<Response<O>>
 
-    override suspend fun execute(parameters: I) : Deferred<Response<O>> {
-        val data = getData(parameters)
-        return data
-
-       // onSuccess(data)
-
-//        compositeDisposable.add(getData(parameters)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ response -> onSuccess(response) }, { throwable -> onError(throwable, REQUEST_FAILED) })
-//        )
+    override suspend fun execute(parameters: I){
+        val data = getData(parameters).await()
+        onSuccess(data)
     }
 
     private fun onSuccess(response: Response<O>) {
