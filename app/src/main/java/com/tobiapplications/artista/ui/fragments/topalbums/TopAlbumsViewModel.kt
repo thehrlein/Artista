@@ -2,6 +2,7 @@ package com.tobiapplications.artista.ui.fragments.topalbums
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tobiapplications.artista.domain.GetTopAlbumsUseCase
 import com.tobiapplications.artista.model.AlbumEntry
@@ -9,7 +10,6 @@ import com.tobiapplications.artista.model.topalbums.AlbumAttributes
 import com.tobiapplications.artista.model.topalbums.TopAlbumRequestModel
 import com.tobiapplications.artista.model.topalbums.TopAlbumsResponse
 import com.tobiapplications.artista.utils.extension.map
-import com.tobiapplications.artista.utils.mvvm.BaseViewModel
 import com.tobiapplications.artista.utils.mvvm.Result
 import com.tobiapplications.artista.utils.persistence.room.AlbumRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TopAlbumsViewModel @Inject constructor(private val getTopAlbumsUseCase: GetTopAlbumsUseCase,
-                                             private val albumRepository: AlbumRepository) : BaseViewModel() {
+                                             private val albumRepository: AlbumRepository) : ViewModel() {
 
 
     val favoriteAlbums : LiveData<List<AlbumEntry>> = albumRepository.favoriteAlbums
@@ -33,7 +33,7 @@ class TopAlbumsViewModel @Inject constructor(private val getTopAlbumsUseCase: Ge
     }
 
     fun getTopAlbums(artist: String, albumPage: Int, albumsPerRequest: Int) {
-        launch {
+        viewModelScope.launch {
            getTopAlbumsUseCase.execute(TopAlbumRequestModel(artist, albumPage, albumsPerRequest,true))
         }
     }

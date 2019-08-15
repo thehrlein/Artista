@@ -140,9 +140,4 @@ class TopAlbumsFragment : BaseFragment() {
         super.onDestroyView()
         loadResult = false
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDestroy()
-    }
 }

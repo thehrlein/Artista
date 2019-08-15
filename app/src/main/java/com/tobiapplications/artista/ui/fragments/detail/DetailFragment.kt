@@ -143,10 +143,5 @@ class DetailFragment : BaseFragment() {
     override fun isToolbarBackButtonEnabled(): Boolean {
         return true
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDestroy()
-    }
 }
 

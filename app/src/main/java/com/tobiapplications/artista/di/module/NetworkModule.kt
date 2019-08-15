@@ -48,8 +48,8 @@ class NetworkModule {
         clientBuilder.readTimeout(timeOut, TimeUnit.SECONDS)
         clientBuilder.connectTimeout(timeOut, TimeUnit.SECONDS)
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        clientBuilder.addInterceptor(httpLoggingInterceptor)
         clientBuilder.addInterceptor(requestInterceptor)
+        clientBuilder.addInterceptor(httpLoggingInterceptor)
 
         return Retrofit.Builder().client(clientBuilder.build())
             .baseUrl(ArtistaUrls.BASE_LAST_FM_URL)

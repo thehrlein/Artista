@@ -15,7 +15,7 @@ abstract class BaseRepositoryRequestUseCase<I, O, R>(private val repo: BaseRepos
     private val compositeDisposable = CompositeDisposable()
 
     override suspend fun execute(parameters: I) {
-        val data = repo.getData(parameters).await()
+        val data = repo.getData(parameters)
         onSuccess(data)
     }
 
