@@ -54,7 +54,7 @@ dependencies {
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_arch"
 
     // Coroutines
@@ -76,9 +76,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
-
-    // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:$recycler_view"
 
     // Room
     implementation "androidx.room:room-runtime:$room"

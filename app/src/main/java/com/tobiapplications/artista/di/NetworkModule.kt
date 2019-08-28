@@ -11,42 +11,37 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
-import org.kodein.di.generic.multiton
+import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-val networkModule = Kodein.Module {
+val networkModule = Kodein.Module("networkModule") {
 
-    bind<Gson>() with singleton { Gson() }
-    bind<OkHttpClient>() with singleton { OkHttpClient() }
-    bind<HttpLoggingInterceptor>() with singleton { HttpLoggingInterceptor() }
-    bind<RequestInterceptor>() with singleton { RequestInterceptor() }
-    bind<Retrofit>() with multiton {
-        gson: Gson,
-        httpLoggingInterceptor: HttpLoggingInterceptor,
-        okHttpClient: OkHttpClient,
-        requestInterceptor: RequestInterceptor ->
-
+    bind() from singleton { Gson() }
+    bind() from singleton { OkHttpClient() }
+    bind() from singleton { HttpLoggingInterceptor() }
+    bind() from singleton { RequestInterceptor() }
+    bind() from  singleton {
         val timeOut = 30L
-        val clientBuilder = okHttpClient.newBuilder()
+        val clientBuilder = instance<OkHttpClient>().newBuilder()
         clientBuilder.readTimeout(timeOut, TimeUnit.SECONDS)
         clientBuilder.connectTimeout(timeOut, TimeUnit.SECONDS)
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        clientBuilder.addInterceptor(requestInterceptor)
-        clientBuilder.addInterceptor(httpLoggingInterceptor)
+        instance<HttpLoggingInterceptor>().level = HttpLoggingInterceptor.Level.BODY
+        clientBuilder.addInterceptor(instance<HttpLoggingInterceptor>())
+        clientBuilder.addInterceptor(instance<RequestInterceptor>())
 
         Retrofit.Builder().client(clientBuilder.build())
             .baseUrl(ArtistaUrls.BASE_LAST_FM_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(instance()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 
-    bind<ArtistaApi>() with multiton { retrofit: Retrofit -> retrofit.create(ArtistaApi::class.java) }
-    bind<NetworkManagerDelegate>() with multiton { api: ArtistaApi -> NetworkManager(api) }
+    bind() from singleton { instance<Retrofit>().create(ArtistaApi::class.java) }
+    bind() from singleton { NetworkManager(instance()) }
 }
 

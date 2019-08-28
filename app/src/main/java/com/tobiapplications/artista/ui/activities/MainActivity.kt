@@ -1,16 +1,18 @@
 package com.tobiapplications.artista.ui.activities
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.tobiapplications.artista.R
 import com.tobiapplications.artista.ui.base.BaseActivity
 import com.tobiapplications.artista.ui.fragments.main.MainFragment
+import com.tobiapplications.artista.utils.extension.obtainViewModel
 import com.tobiapplications.artista.utils.extension.postDelayed
 import com.tobiapplications.artista.utils.extension.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-//    private val viewModel: MainActivityViewModel by viewModel()
+    private lateinit var viewModel: MainActivityViewModel
 
     companion object {
         const val FRAGMENT_CONTAINER_ID = R.id.fragment_container
@@ -29,8 +31,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-//        viewModel.title.observe(this, Observer { toolbar.title = it })
-//        viewModel.toolbarBackButton.observe(this, Observer { enableToolbarBackButton(it) })
+        viewModel = obtainViewModel()
+        viewModel.title.observe(this, Observer { toolbar.title = it })
+        viewModel.toolbarBackButton.observe(this, Observer { enableToolbarBackButton(it) })
     }
 
     private fun enableToolbarBackButton(enable: Boolean) {

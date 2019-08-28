@@ -8,8 +8,6 @@ import com.tobiapplications.artista.domain.GetTopAlbumsUseCase
 import com.tobiapplications.artista.model.AlbumEntry
 import com.tobiapplications.artista.model.topalbums.AlbumAttributes
 import com.tobiapplications.artista.model.topalbums.TopAlbumRequestModel
-import com.tobiapplications.artista.model.topalbums.TopAlbumsResponse
-import com.tobiapplications.artista.utils.extension.map
 import com.tobiapplications.artista.utils.mvvm.Result
 import com.tobiapplications.artista.utils.persistence.room.AlbumRepository
 import kotlinx.coroutines.Dispatchers
@@ -20,20 +18,27 @@ class TopAlbumsViewModel constructor(private val getTopAlbumsUseCase: GetTopAlbu
 
 
     val favoriteAlbums : LiveData<List<AlbumEntry>> = albumRepository.favoriteAlbums
+
+    private var topAlbumsWrapper = MutableLiveData<List<AlbumEntry>>()
     val topAlbums : LiveData<List<AlbumEntry>>
-    var albumAttributes = MutableLiveData<AlbumAttributes>()
+
+    private var albumAttributesWrapper = MutableLiveData<AlbumAttributes>()
+    var albumAttributes : LiveData<AlbumAttributes>
 
     init {
-        topAlbums = getTopAlbumsUseCase.observe().map { result ->
-            val albumResponse = (result as? Result.Success<TopAlbumsResponse>)?.data
-            albumAttributes.value = albumResponse?.topAlbums?.albumAttributes
-            albumResponse?.topAlbums?.album?.map { AlbumEntry(it.name, it.playCount, it.url, it.artist.artist, it.images.lastOrNull()?.url.orEmpty()) }.orEmpty()
-        }
+        topAlbums = topAlbumsWrapper
+        albumAttributes = albumAttributesWrapper
     }
 
     fun getTopAlbums(artist: String, albumPage: Int, albumsPerRequest: Int) {
         viewModelScope.launch {
-           getTopAlbumsUseCase.execute(TopAlbumRequestModel(artist, albumPage, albumsPerRequest,true))
+           when (val response = getTopAlbumsUseCase.getResponse(TopAlbumRequestModel(artist, albumPage, albumsPerRequest,true))) {
+               is Result.Success -> {
+                   val albumResponse = response.data
+                   albumAttributesWrapper.postValue(albumResponse.topAlbums.albumAttributes)
+                   topAlbumsWrapper.postValue(response.data.topAlbums.album.map { AlbumEntry(it.name, it.playCount, it.url, it.artist.artist, it.images.lastOrNull()?.url.orEmpty()) })
+               }
+           }
         }
     }
 

@@ -8,7 +8,6 @@ import com.tobiapplications.artista.domain.GetLastSearchQueryUseCase
 import com.tobiapplications.artista.domain.SearchArtistsUseCase
 import com.tobiapplications.artista.domain.StoreLastSearchQueryUseCase
 import com.tobiapplications.artista.model.searchartist.Artist
-import com.tobiapplications.artista.model.searchartist.ArtistResponse
 import com.tobiapplications.artista.utils.extension.map
 import com.tobiapplications.artista.utils.mvvm.Result
 import kotlinx.coroutines.launch
@@ -17,14 +16,13 @@ class SearchViewModel constructor(private val searchArtistsUseCase: SearchArtist
                                           private val getLastSearchQueryUseCase: GetLastSearchQueryUseCase,
                                           private val storeLastSearchQueryUseCase: StoreLastSearchQueryUseCase) : ViewModel() {
 
+    private val artistWrapper = MutableLiveData<List<Artist>>()
     val artists : LiveData<List<Artist>>
     private val lastSearchQueryResult = MutableLiveData<Result<String>>()
     val lastSearchQuery : LiveData<String>
 
     init {
-        artists = searchArtistsUseCase.observe().map {
-            (it as? Result.Success<ArtistResponse>)?.data?.results?.artistMatches?.artists.orEmpty()
-        }
+        artists = artistWrapper
 
         lastSearchQuery = lastSearchQueryResult.map {
             (it as? Result.Success<String>)?.data.orEmpty()
@@ -35,7 +33,9 @@ class SearchViewModel constructor(private val searchArtistsUseCase: SearchArtist
 
     fun searchArtists(query: String) {
         viewModelScope.launch {
-            searchArtistsUseCase.execute(query)
+            when (val response = searchArtistsUseCase.getResponse(query)) {
+                is Result.Success -> artistWrapper.postValue(response.data.results.artistMatches.artists)
+            }
         }
     }
 
