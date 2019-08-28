@@ -12,12 +12,12 @@ import retrofit2.http.Url
 interface ArtistaAPi {
 
     @GET
-    fun searchArtists(@Url url: String) : Deferred<Response<ArtistResponse>>
+    suspend fun searchArtists(@Url url: String) : Response<ArtistResponse>
 
     @GET
-    fun getTopAlbums(@Url url: String) : Deferred<Response<TopAlbumsResponse>>
+    suspend fun getTopAlbums(@Url url: String) : Response<TopAlbumsResponse>
 
     @GET
-    fun getAlbumsTracks(@Url url: String) : Deferred<Response<AlbumTracksResponse>>
+    suspend fun getAlbumsTracks(@Url url: String) : Response<AlbumTracksResponse>
 }
 

@@ -2,21 +2,14 @@ package com.tobiapplications.artista.domain
 
 import com.tobiapplications.artista.model.topalbums.TopAlbumRequestModel
 import com.tobiapplications.artista.model.topalbums.TopAlbumsResponse
-import com.tobiapplications.artista.utils.mvvm.BaseRepositoryRequestUseCase
-import com.tobiapplications.artista.utils.repository.topalbums.TopAlbumsRepository
+import com.tobiapplications.artista.utils.mvvm.BaseRequestUseCase
+import com.tobiapplications.artista.utils.network.NetworkManagerDelegate
+import retrofit2.Response
 import javax.inject.Inject
 
-class GetTopAlbumsUseCase @Inject constructor(private val topAlbumsRepository: TopAlbumsRepository) : BaseRepositoryRequestUseCase<TopAlbumRequestModel, TopAlbumsResponse, TopAlbumsResponse>(topAlbumsRepository) {
+class GetTopAlbumsUseCase @Inject constructor(private val networkManager: NetworkManagerDelegate) : BaseRequestUseCase<TopAlbumRequestModel, TopAlbumsResponse>() {
 
-    override suspend fun execute(parameters: TopAlbumRequestModel) {
-        if (parameters.clearLocalCache) {
-            topAlbumsRepository.clear()
-        }
-
-        super.execute(parameters)
-    }
-
-    override fun transformResponse(input: TopAlbumsResponse?): TopAlbumsResponse {
-        return input ?: TopAlbumsResponse()
+    override suspend fun getData(input: TopAlbumRequestModel): Response<TopAlbumsResponse> {
+        return networkManager.getTopAlbums(input.artist, input.albumPage, input.resultsPerPage)
     }
 }

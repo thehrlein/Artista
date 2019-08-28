@@ -21,20 +21,27 @@ class TopAlbumsViewModel @Inject constructor(private val getTopAlbumsUseCase: Ge
 
 
     val favoriteAlbums : LiveData<List<AlbumEntry>> = albumRepository.favoriteAlbums
+
+    private var topAlbumsWrapper = MutableLiveData<List<AlbumEntry>>()
     val topAlbums : LiveData<List<AlbumEntry>>
-    var albumAttributes = MutableLiveData<AlbumAttributes>()
+
+    private var albumAttributesWrapper = MutableLiveData<AlbumAttributes>()
+    var albumAttributes : LiveData<AlbumAttributes>
 
     init {
-        topAlbums = getTopAlbumsUseCase.observe().map { result ->
-            val albumResponse = (result as? Result.Success<TopAlbumsResponse>)?.data
-            albumAttributes.value = albumResponse?.topAlbums?.albumAttributes
-            albumResponse?.topAlbums?.album?.map { AlbumEntry(it.name, it.playCount, it.url, it.artist.artist, it.images.lastOrNull()?.url.orEmpty()) }.orEmpty()
-        }
+        topAlbums = topAlbumsWrapper
+        albumAttributes = albumAttributesWrapper
     }
 
     fun getTopAlbums(artist: String, albumPage: Int, albumsPerRequest: Int) {
         viewModelScope.launch {
-           getTopAlbumsUseCase.execute(TopAlbumRequestModel(artist, albumPage, albumsPerRequest,true))
+           when (val response = getTopAlbumsUseCase.getResponse(TopAlbumRequestModel(artist, albumPage, albumsPerRequest,true))) {
+               is Result.Success -> {
+                   val albumResponse = response.data
+                   albumAttributesWrapper.postValue(albumResponse.topAlbums.albumAttributes)
+                   topAlbumsWrapper.postValue(response.data.topAlbums.album.map { AlbumEntry(it.name, it.playCount, it.url, it.artist.artist, it.images.lastOrNull()?.url.orEmpty()) })
+               }
+           }
         }
     }
 

@@ -18,14 +18,13 @@ class SearchViewModel @Inject constructor(private val searchArtistsUseCase: Sear
                                           private val getLastSearchQueryUseCase: GetLastSearchQueryUseCase,
                                           private val storeLastSearchQueryUseCase: StoreLastSearchQueryUseCase) : ViewModel() {
 
+    private val artistWrapper = MutableLiveData<List<Artist>>()
     val artists : LiveData<List<Artist>>
     private val lastSearchQueryResult = MutableLiveData<Result<String>>()
     val lastSearchQuery : LiveData<String>
 
     init {
-        artists = searchArtistsUseCase.observe().map {
-            (it as? Result.Success<ArtistResponse>)?.data?.results?.artistMatches?.artists.orEmpty()
-        }
+        artists = artistWrapper
 
         lastSearchQuery = lastSearchQueryResult.map {
             (it as? Result.Success<String>)?.data.orEmpty()
@@ -36,7 +35,9 @@ class SearchViewModel @Inject constructor(private val searchArtistsUseCase: Sear
 
     fun searchArtists(query: String) {
         viewModelScope.launch {
-            searchArtistsUseCase.execute(query)
+            when (val response = searchArtistsUseCase.getResponse(query)) {
+                is Result.Success -> artistWrapper.postValue(response.data.results.artistMatches.artists)
+            }
         }
     }
 

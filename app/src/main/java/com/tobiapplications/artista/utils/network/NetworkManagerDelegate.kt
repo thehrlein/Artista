@@ -9,9 +9,9 @@ import retrofit2.Response
 
 interface NetworkManagerDelegate {
 
-    fun searchArtists(query: String) : Deferred<Response<ArtistResponse>>
+    suspend fun searchArtists(query: String) : Response<ArtistResponse>
 
-    fun getTopAlbums(artist: String, albumPage: Int, resultsPerPage: Int) : Deferred<Response<TopAlbumsResponse>>
+    suspend fun getTopAlbums(artist: String, albumPage: Int, resultsPerPage: Int) : Response<TopAlbumsResponse>
 
-    fun getAlbumTracks(artist: String, album: String) : Deferred<Response<AlbumTracksResponse>>
+    suspend fun getAlbumTracks(artist: String, album: String) : Response<AlbumTracksResponse>
 }
