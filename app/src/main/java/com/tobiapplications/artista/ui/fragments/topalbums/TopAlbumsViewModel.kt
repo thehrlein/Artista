@@ -14,10 +14,9 @@ import com.tobiapplications.artista.utils.mvvm.Result
 import com.tobiapplications.artista.utils.persistence.room.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class TopAlbumsViewModel @Inject constructor(private val getTopAlbumsUseCase: GetTopAlbumsUseCase,
-                                             private val albumRepository: AlbumRepository) : ViewModel() {
+class TopAlbumsViewModel constructor(private val getTopAlbumsUseCase: GetTopAlbumsUseCase,
+                                     private val albumRepository: AlbumRepository) : ViewModel() {
 
 
     val favoriteAlbums : LiveData<List<AlbumEntry>> = albumRepository.favoriteAlbums

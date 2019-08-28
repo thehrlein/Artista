@@ -12,9 +12,8 @@ import com.tobiapplications.artista.model.searchartist.ArtistResponse
 import com.tobiapplications.artista.utils.extension.map
 import com.tobiapplications.artista.utils.mvvm.Result
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(private val searchArtistsUseCase: SearchArtistsUseCase,
+class SearchViewModel constructor(private val searchArtistsUseCase: SearchArtistsUseCase,
                                           private val getLastSearchQueryUseCase: GetLastSearchQueryUseCase,
                                           private val storeLastSearchQueryUseCase: StoreLastSearchQueryUseCase) : ViewModel() {
 

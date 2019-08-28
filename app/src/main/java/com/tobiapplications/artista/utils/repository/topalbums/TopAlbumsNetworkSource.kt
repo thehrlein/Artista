@@ -6,11 +6,8 @@ import com.tobiapplications.artista.utils.network.NetworkManagerDelegate
 import com.tobiapplications.artista.utils.repository.base.NetworkSourceDelegate
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TopAlbumsNetworkSource @Inject constructor(private val networkManager: NetworkManagerDelegate) : NetworkSourceDelegate<TopAlbumRequestModel, TopAlbumsResponse> {
+class TopAlbumsNetworkSource constructor(private val networkManager: NetworkManagerDelegate) : NetworkSourceDelegate<TopAlbumRequestModel, TopAlbumsResponse> {
 
     override suspend fun requestData(input: TopAlbumRequestModel): Deferred<Response<TopAlbumsResponse>> {
         return networkManager.getTopAlbums(input.artist, input.albumPage, input.resultsPerPage)

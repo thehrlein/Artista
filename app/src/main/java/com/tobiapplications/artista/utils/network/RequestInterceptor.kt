@@ -3,11 +3,8 @@ package com.tobiapplications.artista.utils.network
 import com.tobiapplications.artista.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class RequestInterceptor @Inject constructor() : Interceptor {
+class RequestInterceptor : Interceptor {
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "api_key"

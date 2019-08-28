@@ -1,18 +1,13 @@
 package com.tobiapplications.artista
 
-import android.app.Activity
 import android.app.Application
-import com.tobiapplications.artista.di.component.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import com.tobiapplications.artista.di.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.androidXModule
 import timber.log.Timber
-import javax.inject.Inject
 
-class ArtistaApplication : Application(), HasActivityInjector {
-
-    @Inject
-    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class ArtistaApplication : Application(), KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
@@ -20,14 +15,14 @@ class ArtistaApplication : Application(), HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this)
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return activityDispatchingAndroidInjector
-    }
+    override val kodein by Kodein.lazy {
+            import(androidXModule(this@ArtistaApplication))
+            import(appModule)
+            import(networkModule)
+            import(persinstenceModule)
+            import(useCaseModule)
+            import(viewModelModule)
+        }
 }

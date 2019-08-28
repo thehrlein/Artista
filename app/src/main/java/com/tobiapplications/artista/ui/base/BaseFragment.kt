@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.tobiapplications.artista.ui.fragments.FragmentComponent
 import com.tobiapplications.artista.utils.general.CoreService
 import com.tobiapplications.artista.utils.mvvm.ViewModelFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-abstract class BaseFragment : DaggerFragment(), FragmentComponent {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+abstract class BaseFragment : Fragment(), FragmentComponent, KodeinAware {
 
-    @Inject
-    lateinit var coreService: CoreService
+    override val kodein: Kodein by closestKodein()
+    private val coreService: CoreService by instance()
+    val factory: ViewModelFactory by instance()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayout(), container,false)

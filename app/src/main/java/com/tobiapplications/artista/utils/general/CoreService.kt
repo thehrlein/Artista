@@ -2,11 +2,8 @@ package com.tobiapplications.artista.utils.general
 
 import rx.Observer
 import rx.subjects.PublishSubject
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CoreService @Inject constructor() {
+class CoreService {
 
     private var titleObservable : PublishSubject<String> = PublishSubject.create()
     private var toolbarBackButton : PublishSubject<Boolean> = PublishSubject.create()

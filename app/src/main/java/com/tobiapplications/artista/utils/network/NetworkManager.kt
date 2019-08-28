@@ -4,11 +4,10 @@ import com.tobiapplications.artista.model.searchartist.ArtistResponse
 import com.tobiapplications.artista.model.topalbums.TopAlbumsResponse
 import com.tobiapplications.artista.model.tracks.AlbumTracksResponse
 import com.tobiapplications.artista.utils.general.ArtistaUrls
-import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
-class NetworkManager(private val artistaApi: ArtistaAPi) : NetworkManagerDelegate {
+class NetworkManager(private val artistaApi: ArtistaApi) : NetworkManagerDelegate {
 
     override fun searchArtists(query: String): Deferred<Response<ArtistResponse>> {
         return artistaApi.searchArtists(ArtistaUrls.getSearchArtistUrl(query))

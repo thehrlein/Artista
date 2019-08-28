@@ -13,10 +13,9 @@ import com.tobiapplications.artista.utils.mvvm.Result
 import com.tobiapplications.artista.utils.persistence.room.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(private val getAlbumTracksUseCase: GetAlbumTracksUseCase,
-                                          private val albumRepository: AlbumRepository) : ViewModel() {
+class DetailViewModel constructor(private val getAlbumTracksUseCase: GetAlbumTracksUseCase,
+                                  private val albumRepository: AlbumRepository) : ViewModel() {
 
     var tracks : LiveData<List<Track>>
 

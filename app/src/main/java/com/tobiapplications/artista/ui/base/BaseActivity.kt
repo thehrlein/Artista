@@ -1,15 +1,18 @@
 package com.tobiapplications.artista.ui.base
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.tobiapplications.artista.utils.mvvm.ViewModelFactory
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
 
 
-abstract class BaseActivity : DaggerAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), KodeinAware {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+    override val kodein by closestKodein()
+
+    val factory: ViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

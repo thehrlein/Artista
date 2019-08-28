@@ -7,9 +7,8 @@ import com.tobiapplications.artista.model.AlbumEntry
 import com.tobiapplications.artista.utils.persistence.room.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MainFragmentViewModel @Inject constructor(private val albumRepository: AlbumRepository) : ViewModel() {
+class MainFragmentViewModel constructor(private val albumRepository: AlbumRepository) : ViewModel() {
 
     val favoriteAlbums : LiveData<List<AlbumEntry>> = albumRepository.favoriteAlbums
 

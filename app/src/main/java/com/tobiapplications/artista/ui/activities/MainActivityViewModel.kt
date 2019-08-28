@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tobiapplications.artista.utils.general.CoreService
 import rx.Observer
-import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(private val coreService: CoreService) : ViewModel() {
+class MainActivityViewModel constructor(private val coreService: CoreService) : ViewModel() {
 
     var title = MutableLiveData<String>()
     var toolbarBackButton = MutableLiveData<Boolean>()
