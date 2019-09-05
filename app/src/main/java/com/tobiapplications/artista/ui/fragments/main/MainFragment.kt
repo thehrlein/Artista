@@ -10,10 +10,11 @@ import com.tobiapplications.artista.ui.fragments.search.SearchFragment
 import com.tobiapplications.artista.ui.viewhandler.AlbumAdapter
 import com.tobiapplications.artista.utils.extension.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment() {
 
-    private lateinit var viewModel: MainFragmentViewModel
+    private val viewModel: MainFragmentViewModel by viewModel()
     private var albumAdapter : AlbumAdapter? = null
 
     companion object {
@@ -41,7 +42,6 @@ class MainFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = obtainViewModel()
         viewModel.favoriteAlbums.observe(viewLifecycleOwner, Observer { setFavoriteAlbums(it) })
     }
 

@@ -18,10 +18,11 @@ import com.tobiapplications.artista.ui.viewhandler.TracksAdapter
 import com.tobiapplications.artista.utils.extension.*
 import com.tobiapplications.artista.utils.general.ArtistaConstants
 import kotlinx.android.synthetic.main.fragment_detail.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailFragment : BaseFragment() {
 
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by viewModel()
     private lateinit var album: AlbumEntry
 
     companion object {
@@ -80,7 +81,6 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = obtainViewModel()
         viewModel.tracks.observe(this, Observer { setTracks(it) })
     }
 

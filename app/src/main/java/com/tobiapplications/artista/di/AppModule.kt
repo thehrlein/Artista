@@ -1,14 +1,15 @@
 package com.tobiapplications.artista.di
 
+import com.tobiapplications.artista.utils.general.ArtistaConstants
 import com.tobiapplications.artista.utils.general.CoreService
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.singleton
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 /**
  * Created by tobias.hehrlein on 15.08.2019.
  */
-val appModule = Kodein.Module("appModule") {
-
-    bind() from singleton { CoreService() }
+val appModule = module {
+   single { CoreService() }
 }
+
+

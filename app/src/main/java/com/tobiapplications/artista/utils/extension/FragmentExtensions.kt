@@ -17,13 +17,6 @@ import com.tobiapplications.artista.ui.base.BaseFragment
  */
 
 /**
- * Obtain viewModel. Automatically takes the correct viewModel based on it's fragment variable declaration
- * Bound to fragment scope.
- */
-inline fun <reified VM : ViewModel> BaseFragment.obtainViewModel() =
-        ViewModelProviders.of(this, factory).get(VM::class.java)
-
-/**
  * Create a toast by simple calling "toast(message)"
  * @param messageRes non-null int res
  */

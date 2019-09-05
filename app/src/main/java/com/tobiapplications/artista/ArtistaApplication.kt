@@ -2,15 +2,12 @@ package com.tobiapplications.artista
 
 import android.app.Application
 import com.tobiapplications.artista.di.*
-import org.kodein.di.DKodein
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.singleton
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class ArtistaApplication : Application(), KodeinAware {
+class ArtistaApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -18,15 +15,17 @@ class ArtistaApplication : Application(), KodeinAware {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
 
-    override val kodein by Kodein.lazy {
-            import(androidXModule(this@ArtistaApplication))
-            bind<DKodein>() with singleton { this.dkodein }
-            import(appModule)
-            import(networkModule)
-            import(persistenceModule)
-            import(useCaseModule)
-            import(viewModelModule)
+        startKoin {
+            androidLogger()
+            androidContext(this@ArtistaApplication)
+            modules(listOf(
+                appModule,
+                networkModule,
+                persistenceModule,
+                useCaseModule,
+                viewModelModule
+            ))
         }
+    }
 }

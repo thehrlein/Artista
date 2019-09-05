@@ -1,21 +1,18 @@
 package com.tobiapplications.artista.di
 
 import com.tobiapplications.artista.domain.*
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 
 /**
  * Created by tobias.hehrlein on 15.08.2019.
  */
 
-val useCaseModule = Kodein.Module("useCaseModule") {
+val useCaseModule = module {
 
-    bind() from singleton { GetAlbumTracksUseCase(instance()) }
-    bind() from singleton { GetLastSearchQueryUseCase(instance()) }
-    bind() from singleton { GetTopAlbumsUseCase(instance()) }
-    bind() from singleton { SearchArtistsUseCase(instance()) }
-    bind() from singleton { StoreLastSearchQueryUseCase(instance()) }
+    single { GetAlbumTracksUseCase(get()) }
+    single { GetLastSearchQueryUseCase(get()) }
+    single { GetTopAlbumsUseCase(get()) }
+    single { SearchArtistsUseCase(get()) }
+    single { StoreLastSearchQueryUseCase(get()) }
 }
 

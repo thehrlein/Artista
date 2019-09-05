@@ -21,4 +21,9 @@ object ArtistaConstants  {
      * Shared preferences
      */
     const val LAST_SEARCH_QUERY = "last_search_query"
+
+    /**
+     * Koin
+     */
+    const val APP_SCOPE = "app_scope"
 }

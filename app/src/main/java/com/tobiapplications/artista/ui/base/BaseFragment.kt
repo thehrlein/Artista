@@ -8,18 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tobiapplications.artista.ui.fragments.FragmentComponent
 import com.tobiapplications.artista.utils.general.CoreService
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.currentScope
 
 
-abstract class BaseFragment : Fragment(), FragmentComponent, KodeinAware {
+abstract class BaseFragment : Fragment(), FragmentComponent {
 
-    override val kodein: Kodein by closestKodein()
-    private val coreService: CoreService by instance()
-    val factory: ViewModelProvider.Factory by instance()
-
+    private val coreService: CoreService by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayout(), container,false)

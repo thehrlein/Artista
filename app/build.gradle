@@ -48,9 +48,12 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:$rx_binding"
     implementation "com.jakewharton.rxbinding:rxbinding-kotlin:$rx_binding_kotlin"
 
-    // Kodein
-    implementation "org.kodein.di:kodein-di-framework-android-x:$kodein"
-    implementation "org.kodein.di:kodein-di-generic-jvm:$kodein"
+    // Koin for Android / Scope / ViewModel / Experimental
+    implementation "org.koin:koin-android:$koin"
+    implementation "org.koin:koin-android-scope:$koin"
+    implementation "org.koin:koin-android-viewmodel:$koin"
+    implementation "org.koin:koin-android-ext:$koin"
+
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"

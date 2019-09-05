@@ -10,10 +10,11 @@ import com.tobiapplications.artista.utils.extension.*
 import com.tobiapplications.artista.utils.network.NetworkUtils
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_search_query_single_item_view.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment() {
 
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModel()
     private var searchAdapter: SearchQueryAdapter? = null
 
     companion object {
@@ -50,7 +51,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = obtainViewModel()
         viewModel.artists.observe(viewLifecycleOwner, Observer { setArtists(it) })
         viewModel.lastSearchQuery.observe(viewLifecycleOwner, Observer {
             searchAutoCompleteText.setText(it)

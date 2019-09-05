@@ -13,10 +13,11 @@ import com.tobiapplications.artista.ui.viewhandler.AlbumAdapter
 import com.tobiapplications.artista.utils.extension.*
 import com.tobiapplications.artista.utils.general.ArtistaConstants
 import kotlinx.android.synthetic.main.fragment_top_albums.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TopAlbumsFragment : BaseFragment() {
 
-    private lateinit var viewModel: TopAlbumsViewModel
+    private val viewModel: TopAlbumsViewModel by viewModel()
     private var albumAdapter : AlbumAdapter? = null
     private var albumAttributes: AlbumAttributes = AlbumAttributes(0, 1)
     private var loadResult = true
@@ -64,7 +65,6 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = obtainViewModel()
         viewModel.topAlbums.observe(viewLifecycleOwner, Observer { setAlbums(it) })
         viewModel.albumAttributes.observe(viewLifecycleOwner, Observer { this.albumAttributes = it })
         viewModel.favoriteAlbums.observe(viewLifecycleOwner, Observer { setFavorites(it) })
