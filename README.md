@@ -4,6 +4,8 @@
 
 **Important:** To run this application, you have to set up your personal [LastFm - API Key ](https://www.last.fm/api/authentication) and write it into 'gradle.properties'
 
+This is a sample where I tried dependency injection via dagger, koin and kodein (check branches)
+
 ## Features:
 - Search for artists
 - List artists top albums
@@ -19,7 +21,7 @@
    * LiveData
    * Room Database
 - Coroutines
-- Dagger
+- Dagger / Koin / Kodein (check branches)
 - Glide
 - Retrofit
 - ...
